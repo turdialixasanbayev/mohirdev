@@ -38,3 +38,57 @@ class Notification(BaseModel):
     class Meta:
         verbose_name = 'Xabarnoma'
         verbose_name_plural = 'Xabarnomalar'
+
+
+class Statistics(BaseModel):
+    key = models.CharField(max_length=250, db_index=True, unique=True)
+    value = models.IntegerField()
+
+    class Meta:
+        verbose_name = 'Statistika'
+        verbose_name_plural = 'Statistikalar'
+
+    def __str__(self):
+        return f"ID: {self.pk} Key: {self.key} Value: {self.value}"
+
+
+class Partners(BaseModel):
+    name = models.CharField(max_length=150, db_index=True)
+    image = models.ImageField(upload_to='partners', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Hamkor'
+        verbose_name_plural = 'Hamkorlar'
+
+    def __str__(self):
+        return f"ID: {self.pk} Name: {self.name}"
+
+
+class Testimonials(BaseModel):
+    name = models.CharField(max_length=100, db_index=True)
+    image = models.ImageField(upload_to='testimonials_image', blank=True, null=True)
+    video = models.FileField(upload_to='testimonials_video', blank=True, null=True)
+    link = models.URLField(max_length=200, blank=True, null=True)
+    message = RichTextField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Fikr'
+        verbose_name_plural = 'Fikrlar'
+
+    def __str__(self):
+        return f"ID: {self.pk} Name: {self.name}"
+
+
+class Banner(BaseModel):
+    name = models.CharField(max_length=256, db_index=True)
+    description = RichTextField(blank=True, null=True)
+    image = models.ImageField(upload_to="banner_images/")
+    video = models.FileField(upload_to="banner_videos/", blank=True, null=True)
+    link = models.URLField(max_length=300, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Banner"
+        verbose_name_plural = "Bannerlar"
+
+    def __str__(self):
+        return self.name

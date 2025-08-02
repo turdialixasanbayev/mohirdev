@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'apps.user',
     'apps.category',
     'apps.contact',
+    'apps.article',
 
     'django_cleanup.apps.CleanupConfig',
     'ckeditor',
