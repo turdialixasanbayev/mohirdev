@@ -1,25 +1,43 @@
+"""
+setdefault
+update
+"""
+
 from django.contrib.auth.models import UserManager
 
 
 class CustomUserManager(UserManager):
     def create_user(self, phone_number, password=None, **extra_fields):
         if not phone_number:
-            raise ValueError('Foydalanuvchilarda telefon raqami mavjud bo\'lishi shart')
+            raise ValueError("Foydalanuvchilarda telefon raqami bo'lishi shart")
+
         user = self.model(phone_number=phone_number, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+
         return user
 
     def create_superuser(self, phone_number, password=None, **extra_fields):
-        user = self.create_user(phone_number=phone_number, password=password, **extra_fields)
-        user.is_staff = True
-        user.is_superuser = True
-        user.role = 'admin'
-        user.save(using=self._db)
-        return user
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('role', 'admin')
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError("Admin is_staff=True bo'lishi shart")
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError("Admin is_superuser=True bo'lishi shart")
+        if extra_fields.get('role') != 'admin':
+            raise ValueError("Admin yaratish uchun role='admin' bo'lishi shart")
+
+        return self.create_user(phone_number, password, **extra_fields)
 
     def create_teacher(self, phone_number, password=None, **extra_fields):
-        user = self.create_user(phone_number=phone_number, password=password, **extra_fields)
-        user.role = 'teacher'
-        user.save(using=self._db)
-        return user
+        extra_fields.setdefault('role', 'teacher')
+        extra_fields.setdefault('is_staff', True)
+
+        if extra_fields.get('role') != 'teacher':
+            raise ValueError("O'qituvchi yaratish uchun role='teacher' bo'lishi shart")
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError("O'qituvchi is_staff=True bo'lishi shart")
+
+        return self.create_user(phone_number=phone_number, password=password, **extra_fields)
