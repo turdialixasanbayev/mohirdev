@@ -1,6 +1,7 @@
 from django.db import models
 
 from ckeditor.fields import RichTextField
+from phonenumber_field.modelfields import PhoneNumberField
 
 from django.contrib.auth.models import AbstractUser
 
@@ -22,7 +23,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=100, db_index=True, null=True, blank=True)
     email = models.EmailField(max_length=100, null=True, blank=True, db_index=True)
     role = models.CharField(max_length=10, choices=ROLE, default='user')
-    phone_number = models.CharField(max_length=20, unique=True, db_index=True)
+    phone_number = PhoneNumberField(max_length=15, unique=True, db_index=True, region="UZ", help_text='Telefon raqamingizni kiriting: ')
     image = models.ImageField(upload_to='user_images', null=True, blank=True)
     bio = RichTextField(null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)

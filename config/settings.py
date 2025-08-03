@@ -50,11 +50,13 @@ INSTALLED_APPS = [
     'apps.category',
     'apps.contact',
     'apps.article',
+    'apps.course',
 
     'django_cleanup.apps.CleanupConfig',
     'ckeditor',
     'ckeditor_uploader',
     'query_counter',
+    'phonenumber_field',
 ]
 
 {

@@ -1,8 +1,3 @@
-"""
-setdefault
-update
-"""
-
 from django.contrib.auth.models import UserManager
 
 

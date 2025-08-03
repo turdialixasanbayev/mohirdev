@@ -4,4 +4,4 @@ from .models import Comment, Article
 
 
 admin.site.register(Comment)
-admin.site.register(Article)  # Registering the models
+admin.site.register(Article)

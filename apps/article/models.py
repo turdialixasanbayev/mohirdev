@@ -24,7 +24,7 @@ class Article(BaseModel):
     tags = models.ManyToManyField(Tag, related_name='article_tags', blank=True)
     author = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, related_name='article_author')
     views_count = models.IntegerField(default=0)
-    duration = models.IntegerField(default=0)
+    duration = models.DurationField(null=True, blank=True)
 
     @property
     def comments_count(self):

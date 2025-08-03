@@ -1,6 +1,11 @@
 from django.db import models
 
+from django.contrib.auth import get_user_model
+
 from ckeditor.fields import RichTextField
+from phonenumber_field.modelfields import PhoneNumberField
+
+User = get_user_model()
 
 
 class BaseModel(models.Model):
@@ -15,7 +20,7 @@ class BaseModel(models.Model):
 class SubEmail(BaseModel):
     name = models.CharField(max_length=100, db_index=True)
     email = models.EmailField(max_length=100, unique=True, db_index=True)
-    phone_number = models.CharField(max_length=20, blank=True, null=True, db_index=True, unique=True)
+    phone_number = PhoneNumberField(region='UZ', max_length=15, unique=True, db_index=True, help_text="Telefon raqamingiz, masalan: +998901234567")
     telegram_username = models.URLField(max_length=200, blank=True, null=True, db_index=True, unique=True)
 
     def __str__(self):
@@ -92,3 +97,19 @@ class Banner(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+class Certificate(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='certificate_user')
+    course = models.ForeignKey('course.Course', on_delete=models.CASCADE, related_name='certificate_course')
+    file = models.FileField(upload_to='certificates/', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Sertifikat'
+        verbose_name_plural = 'Sertifikatlar'
+        constraints = [
+        models.UniqueConstraint(fields=['user', 'course'], name='unique_user_course')
+    ]
+
+    def __str__(self):
+        return f"ID: {self.pk} User: {self.user.phone_number} Course: {self.course.title}"
