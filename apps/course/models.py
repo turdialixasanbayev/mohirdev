@@ -7,6 +7,7 @@ from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 import uuid
+
 from django.utils import timezone
 
 from ckeditor.fields import RichTextField
