@@ -101,6 +101,12 @@ class Course(BaseModel):
         if self.discount is not None:
             return self.price - self.discount
         return self.price
+    
+    @property
+    def get_percentage(self):
+        if self.percentage:
+            return f"{self.percentage} %"
+        return "Chegirma yo'q"
 
     class Meta:
         verbose_name = 'Kurs'
