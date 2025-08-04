@@ -27,6 +27,29 @@ class Article(BaseModel):
     duration = models.DurationField(null=True, blank=True)
 
     @property
+    def likes_count(self):
+        return self.likearticle_article.filter(like_or_dislike=1).count()
+
+    @property
+    def dislikes_count(self):
+        return self.likearticle_article.filter(like_or_dislike=0).count()
+
+    @property
+    def total_reactions(self):
+        return self.likearticle_article.count()
+
+    @property
+    def reaction_status(self):
+        reactions = self.likearticle_article.values_list('like_or_dislike', flat=True)
+
+        if 1 in reactions:
+            return "Layk"
+        elif 0 in reactions:
+            return "Dislike"
+        else:
+            return "None"
+
+    @property
     def comments_count(self):
         return self.comment_article.count()
 
@@ -65,3 +88,23 @@ class Comment(BaseModel):
     class Meta:
         verbose_name = 'Izoh'
         verbose_name_plural = 'Izohlar'
+
+
+class LikeArticle(BaseModel):
+    LIKE_OR_DISLIKE = (
+        (0, 'Dislike'),
+        (1, 'Like'),
+    )
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='likearticle_article')
+    user = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, related_name='likearticle_user')
+    like_or_dislike = models.IntegerField(choices=LIKE_OR_DISLIKE, default=0)
+
+    class Meta:
+        verbose_name = 'Like'
+        verbose_name_plural = 'Likes'
+        constraints = [
+            models.UniqueConstraint(fields=['article', 'user'], name='unique_article_user')
+        ]
+
+    def __str__(self):
+        return f"{self.pk} - {self.article.name} - {self.user.phone_number}"

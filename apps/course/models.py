@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.db.models import Avg
+from decimal import Decimal
 
 from django.utils.text import slugify
 
@@ -50,17 +51,31 @@ class Course(BaseModel):
     is_free = models.BooleanField(default=True)
     price_type = models.CharField(max_length=10, choices=PRICE_TYPE, default='free')
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    percentage = models.IntegerField(default=0)
     level = models.CharField(max_length=20, choices=Level.choices, default=Level.BEGINNER)
     language = models.CharField(max_length=10, choices=LANGUAGE, default='uz')
     duration = models.CharField(max_length=10, choices=Duration.choices, default=Duration.ONE_MONTH)
     students_count = models.IntegerField(default=0)
     is_published = models.BooleanField(default=False)
 
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        if self.is_free:
+            if self.price and self.price > 0:
+                raise ValidationError("Bepul kurslar uchun narx belgilab bo'lmaydi.")
+            if self.price_type != 'free':
+                raise ValidationError("Bepul kurslar uchun price_type 'free' bo'lishi kerak.")
+        else:
+            if not self.price or self.price <= 0:
+                raise ValidationError("Pullik kurslar uchun narxni kiriting.")
+            if self.price_type == 'free':
+                raise ValidationError("Pullik kurslar uchun to'g'ri valyuta tanlang.")
+
     @property
     def rating(self):
         average = self.review_course.aggregate(avg=Avg('rate'))['avg']
         return round(average, 1) if average else 0
-    
+
     @property
     def reviews_count(self):
         return self.review_course.count()
@@ -68,6 +83,24 @@ class Course(BaseModel):
     @property
     def lessons_count(self):
         return self.lesson_course.count()
+    
+    @property
+    def full_price(self):
+        if self.is_free and self.price_type == 'free':
+            return "Bepul"
+        return f"{self.price} {self.get_price_type_display()}"
+
+    @property
+    def discount(self):
+        if self.price and self.percentage:
+            return (self.price * Decimal(self.percentage)) / Decimal(100)
+        return None
+
+    @property
+    def discount_price(self):
+        if self.discount is not None:
+            return self.price - self.discount
+        return self.price
 
     class Meta:
         verbose_name = 'Kurs'

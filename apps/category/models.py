@@ -34,7 +34,7 @@ class CategoryRole(models.TextChoices):
 
 class Category(BaseModel):
     role = models.CharField(max_length=10, choices=CategoryRole.choices)
-    parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True, related_name="children")
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True, related_name="children", limit_choices_to={'parent__isnull': True})
     name = models.CharField(max_length=100, unique=True, db_index=True)
     slug = models.SlugField(max_length=100, unique=True, db_index=True, blank=True, null=True)
     image = models.ImageField(upload_to="category_images", blank=True, null=True)
