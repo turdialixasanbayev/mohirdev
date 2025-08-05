@@ -50,7 +50,7 @@ class Course(BaseModel):
     teacher = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, related_name='course_teacher', limit_choices_to={'role': 'teacher'})
     is_free = models.BooleanField(default=True)
     price_type = models.CharField(max_length=10, choices=PRICE_TYPE, default='free')
-    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=0.00)
     percentage = models.IntegerField(default=0)
     level = models.CharField(max_length=20, choices=Level.choices, default=Level.BEGINNER)
     language = models.CharField(max_length=10, choices=LANGUAGE, default='uz')
