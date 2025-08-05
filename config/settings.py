@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'apps.article',
     'apps.course',
     'apps.wishlist',
+    'apps.cart',
 
     'django_cleanup.apps.CleanupConfig',
     'ckeditor',
