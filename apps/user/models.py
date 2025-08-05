@@ -42,3 +42,42 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return f"{self.phone_number} {self.role}"
+
+    @property
+    def get_full_name(self):
+        if self.first_name and self.last_name:
+            return f"{self.first_name} {self.last_name}"
+        return None
+
+    @property
+    def get_role(self):
+        if self.role == 'user':
+            return "Foydalanuvchi"
+        elif self.role == 'teacher':
+            return "O'qituvchi"
+        elif self.role == 'admin':
+            return "Admin"
+        else:
+            return None
+
+    @property
+    def get_age(self):
+        if self.age:
+            return f"{self.age} yosh"
+        return None
+
+    @property
+    def get_gender(self):
+        if self.gender == 'erkak':
+            return "Erkak"
+        elif self.gender == 'ayol':
+            return "Ayol"
+        else:
+            return None
+
+    @property
+    def get_full_location(self):
+        if self.country and self.city:
+            return f"{self.country} - {self.city}"
+        else:
+            return None
