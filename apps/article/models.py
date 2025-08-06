@@ -98,6 +98,10 @@ class LikeArticle(BaseModel):
     user = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, related_name='likearticle_user')
     like_or_dislike = models.IntegerField(choices=LIKE_OR_DISLIKE, default=0)
 
+    @property
+    def status(self):
+        return self.LIKE_OR_DISLIKE[self.like_or_dislike][1]
+
     class Meta:
         verbose_name = 'Like'
         verbose_name_plural = 'Likes'
