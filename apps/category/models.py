@@ -49,7 +49,7 @@ class Category(BaseModel):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Role: {self.role} - Name: {self.name}"
+        return f"ID: {self.pk} - Role: {self.role} - Name: {self.name}"
 
     class Meta:
         verbose_name = "Kategoriya"

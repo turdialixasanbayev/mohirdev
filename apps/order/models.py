@@ -29,7 +29,7 @@ class Order(BaseModel):
         verbose_name_plural = 'Orders'
 
     def __str__(self):
-        return f"Order {self.pk} - {self.first_name} {self.last_name}"
+        return f"{self.pk} - {self.status} - {self.first_name} - {self.last_name}"
 
 
 class OrderItem(BaseModel):

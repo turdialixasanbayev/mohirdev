@@ -27,7 +27,7 @@ class SubEmail(BaseModel):
     telegram_username = models.URLField(max_length=200, blank=True, null=True, db_index=True, unique=True)
 
     def __str__(self):
-        return f"ID: {self.pk} Name: {self.name} Email: {self.email} Phone: {self.phone_number} Telegram: {self.telegram_username}"
+        return f"ID: {self.pk} Email: {self.email} Telegram: {self.telegram_username}"
 
     class Meta:
         verbose_name = 'SubEmail'
@@ -99,7 +99,7 @@ class Banner(BaseModel):
         verbose_name_plural = "Bannerlar"
 
     def __str__(self):
-        return self.name
+        return f"{self.pk} - {self.name}"
 
 
 class Certificate(BaseModel):

@@ -15,7 +15,7 @@ class ContactUs(BaseModel):
     message = RichTextField(null=True, blank=True)
 
     def __str__(self):
-        return f"ID: {self.pk} - Name: {self.name} - Email: {self.email}"
+        return f"ID: {self.pk} - Name: {self.name} - Email: {self.email} - Phone: {self.phone_number}"
 
     class Meta:
         verbose_name = "Biz bilan aloqa!"

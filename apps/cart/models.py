@@ -28,7 +28,7 @@ class Cart(BaseModel):
         return self.cart_item_cart.count()
 
     def __str__(self):
-        return f"Cart ({self.user.phone_number})"
+        return f"{self.pk} - Cart ({self.user.phone_number})"
 
 
 class CartItem(BaseModel):

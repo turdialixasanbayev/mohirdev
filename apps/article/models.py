@@ -82,7 +82,7 @@ class Comment(BaseModel):
     rate = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=5)
 
     def __str__(self):
-        return f"{self.pk} - {self.user.phone_number} - {self.article.name}"
+        return f"{self.pk}  - {self.article.name}"
 
     class Meta:
         verbose_name = 'Izoh'
@@ -106,4 +106,4 @@ class LikeArticle(BaseModel):
         ]
 
     def __str__(self):
-        return f"{self.pk} - {self.article.name} - {self.user.phone_number}"
+        return f"{self.pk} - {self.article.name}"
