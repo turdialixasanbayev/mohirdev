@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from ckeditor.fields import RichTextField
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 User = get_user_model()
 
 
@@ -14,6 +15,8 @@ class BaseModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'Base Model'
+        verbose_name_plural = 'Base Models'
         abstract = True
 
 

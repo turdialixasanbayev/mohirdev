@@ -1,15 +1,13 @@
 from django.db import models
 
 from django.db.models import Avg
-from decimal import Decimal
-
 from django.utils.text import slugify
-
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
 
 import uuid
 
-from django.utils import timezone
+from decimal import Decimal
 
 from ckeditor.fields import RichTextField
 
@@ -83,7 +81,7 @@ class Course(BaseModel):
     @property
     def lessons_count(self):
         return self.lesson_course.count()
-    
+
     @property
     def full_price(self):
         if self.is_free and self.price_type == 'free':
@@ -101,7 +99,7 @@ class Course(BaseModel):
         if self.discount is not None:
             return self.price - self.discount
         return self.price
-    
+
     @property
     def get_percentage(self):
         if self.percentage:

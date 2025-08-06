@@ -1,13 +1,12 @@
 from django.db import models
+
 from django.db.models import Avg
-
 from django.urls import reverse
-
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-import uuid
-
 from ckeditor.fields import RichTextField
+
+import uuid
 
 from apps.common.models import BaseModel
 from apps.category.models import Category, Tag, CategoryRole

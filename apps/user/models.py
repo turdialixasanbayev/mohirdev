@@ -1,9 +1,9 @@
 from django.db import models
 
+from django.contrib.auth.models import AbstractUser
+
 from ckeditor.fields import RichTextField
 from phonenumber_field.modelfields import PhoneNumberField
-
-from django.contrib.auth.models import AbstractUser
 
 from .managers import CustomUserManager
 

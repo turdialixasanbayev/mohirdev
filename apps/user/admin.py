@@ -99,4 +99,3 @@ class CustomUserAdmin(UserAdmin):
             'classes': ('wide',),
         }),
     )
-    # prepopulated_fields
