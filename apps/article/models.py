@@ -62,7 +62,7 @@ class Article(BaseModel):
         verbose_name_plural = 'Maqolalar'
 
     def __str__(self):
-        return f"{self.pk} - {self.name}"
+        return f"{self.pk} {self.name}"
 
     def get_absolute_url(self, *args, **kwargs):
         return reverse('article_detail', kwargs={'slug': self.slug})
@@ -82,7 +82,7 @@ class Comment(BaseModel):
     rate = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=5)
 
     def __str__(self):
-        return f"{self.pk}  - {self.article.name}"
+        return f"{self.pk} {self.article.name}"
 
     class Meta:
         verbose_name = 'Izoh'
@@ -106,4 +106,4 @@ class LikeArticle(BaseModel):
         ]
 
     def __str__(self):
-        return f"{self.pk} - {self.article.name}"
+        return f"{self.pk} {self.article.name}"

@@ -28,7 +28,7 @@ class Cart(BaseModel):
         return self.cart_item_cart.count()
 
     def __str__(self):
-        return f"{self.pk} - Cart ({self.user.phone_number})"
+        return f"{self.pk} {self.user.phone_number}"
 
 
 class CartItem(BaseModel):
@@ -50,4 +50,4 @@ class CartItem(BaseModel):
         verbose_name_plural = 'Cart Items'
 
     def __str__(self):
-        return f"{self.pk} - {self.course.title}"
+        return f"{self.pk} {self.course.title}"

@@ -119,7 +119,7 @@ class Course(BaseModel):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.pk} - {self.title}"
+        return f"{self.pk} {self.title}"
 
 
 class Review(BaseModel):
@@ -129,7 +129,7 @@ class Review(BaseModel):
     rate = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=5)
 
     def __str__(self):
-        return f"{self.pk} - {self.course.title}"
+        return f"{self.pk} {self.course.title}"
 
     class Meta:
         verbose_name = 'Review'
@@ -178,7 +178,7 @@ class Lesson(BaseModel):
         verbose_name_plural = 'Video darslar'
 
     def __str__(self):
-        return f"{self.pk} - {self.name} - {self.course.title}"
+        return f"{self.pk} {self.name} {self.course.title}"
     
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -206,7 +206,7 @@ class Like(BaseModel):
         ]
 
     def __str__(self):
-        return f"{self.pk} - {self.lesson.name}"
+        return f"{self.pk} {self.lesson.name}"
 
 
 class FAQ(BaseModel):
@@ -219,4 +219,4 @@ class FAQ(BaseModel):
         verbose_name_plural = 'FAQs'
 
     def __str__(self):
-        return f"{self.pk} - {self.question}"
+        return f"{self.pk} {self.question}"

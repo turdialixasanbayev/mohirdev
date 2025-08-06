@@ -27,7 +27,7 @@ class SubEmail(BaseModel):
     telegram_username = models.URLField(max_length=200, blank=True, null=True, db_index=True, unique=True)
 
     def __str__(self):
-        return f"ID: {self.pk} Email: {self.email} Telegram: {self.telegram_username}"
+        return f"{self.pk} {self.email}"
 
     class Meta:
         verbose_name = 'SubEmail'
@@ -41,7 +41,7 @@ class Notification(BaseModel):
     is_read = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"ID: {self.pk} Name: {self.name}"
+        return f"{self.pk} {self.name}"
 
     class Meta:
         verbose_name = 'Xabarnoma'
@@ -57,7 +57,7 @@ class Statistics(BaseModel):
         verbose_name_plural = 'Statistikalar'
 
     def __str__(self):
-        return f"ID: {self.pk} Key: {self.key} Value: {self.value}"
+        return f"{self.pk} {self.key} {self.value}"
 
 
 class Partners(BaseModel):
@@ -69,7 +69,7 @@ class Partners(BaseModel):
         verbose_name_plural = 'Hamkorlar'
 
     def __str__(self):
-        return f"ID: {self.pk} Name: {self.name}"
+        return f"{self.pk} {self.name}"
 
 
 class Testimonials(BaseModel):
@@ -84,7 +84,7 @@ class Testimonials(BaseModel):
         verbose_name_plural = 'Fikrlar'
 
     def __str__(self):
-        return f"ID: {self.pk} Name: {self.name}"
+        return f"{self.pk} {self.name}"
 
 
 class Banner(BaseModel):
@@ -99,7 +99,7 @@ class Banner(BaseModel):
         verbose_name_plural = "Bannerlar"
 
     def __str__(self):
-        return f"{self.pk} - {self.name}"
+        return f"{self.pk} {self.name}"
 
 
 class Certificate(BaseModel):
@@ -115,4 +115,4 @@ class Certificate(BaseModel):
     ]
 
     def __str__(self):
-        return f"ID: {self.pk} User: {self.user.phone_number} Course: {self.course.title}"
+        return f"{self.pk} {self.user.phone_number} {self.course.title}"

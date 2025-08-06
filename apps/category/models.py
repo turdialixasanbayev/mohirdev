@@ -24,7 +24,7 @@ class Tag(BaseModel):
         verbose_name_plural = "Taglar"
 
     def __str__(self):
-        return f"{self.pk} - {self.name}"
+        return f"{self.pk} {self.name}"
 
 
 class CategoryRole(models.TextChoices):
@@ -49,7 +49,7 @@ class Category(BaseModel):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"ID: {self.pk} - Role: {self.role} - Name: {self.name}"
+        return f"{self.pk} {self.name} {self.role}"
 
     class Meta:
         verbose_name = "Kategoriya"
