@@ -2,6 +2,7 @@ import django_filters as filter
 
 from .models import (
     Article,
+    Comment,
 )
 
 
@@ -26,4 +27,24 @@ class ArticleFilter(filter.FilterSet):
             'category',
             'author',
             'tags',
+        ]
+
+
+class CommentFilter(filter.FilterSet):
+    is_active = filter.BooleanFilter(field_name="is_active")
+    user = filter.NumberFilter(field_name="user_id", lookup_expr="exact")
+    article = filter.NumberFilter(field_name="article_id", lookup_expr="exact")
+    rate_min = filter.NumberFilter(field_name="rate", lookup_expr="gte")
+    rate_max = filter.NumberFilter(field_name="rate", lookup_expr="lte")
+    comment = filter.CharFilter(field_name="comment", lookup_expr="icontains")
+
+    class Meta:
+        model = Comment
+        fields = [
+            'is_active',
+            'user',
+            'article',
+            'rate_min',
+            'rate_max',
+            'comment',
         ]
