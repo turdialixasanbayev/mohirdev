@@ -3,6 +3,7 @@ import django_filters as filter
 from .models import (
     Article,
     Comment,
+    LikeArticle,
 )
 
 
@@ -47,4 +48,22 @@ class CommentFilter(filter.FilterSet):
             'rate_min',
             'rate_max',
             'comment',
+        ]
+
+
+class LikeArticleFilter(filter.FilterSet):
+    is_active = filter.BooleanFilter(field_name="is_active")
+    user = filter.NumberFilter(field_name="user_id", lookup_expr="exact")
+    article = filter.NumberFilter(field_name="article_id", lookup_expr="exact")
+    like_or_dislike = filter.NumberFilter(field_name="like_or_dislike", lookup_expr="exact")
+    article_name = filter.CharFilter(field_name="article__name", lookup_expr="icontains")
+
+    class Meta:
+        model = LikeArticle
+        fields = [
+            'is_active',
+            'user',
+            'article',
+            'like_or_dislike',
+            'article_name',
         ]

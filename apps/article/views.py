@@ -3,6 +3,7 @@ from rest_framework import generics
 from .models import (
     Article,
     Comment,
+    LikeArticle,
 )
 from apps.common import permissions
 from .serializers import (
@@ -10,10 +11,13 @@ from .serializers import (
     ArticleRUDSerializer,
     CommentLCSerializer,
     CommentRUDSerializer,
+    LikeArticleLCSerializer,
+    LikeArticleRUDSerializer,
 )
 from .filters import (
     ArticleFilter,
     CommentFilter,
+    LikeArticleFilter,
 )
 
 
@@ -76,6 +80,34 @@ class CommentRUDView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return self.queryset.select_related('user', 'article')
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class LikeArticleLCView(generics.ListCreateAPIView):
+    queryset = LikeArticle.objects.filter(is_active=True)
+    serializer_class = LikeArticleLCSerializer
+    filterset_class = LikeArticleFilter
+
+    def get_queryset(self):
+        return self.queryset.select_related('article', 'user')
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class LikeArticleRUDView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = LikeArticle.objects.filter(is_active=True)
+    serializer_class = LikeArticleRUDSerializer
+    lookup_field = 'pk'
+
+    def get_queryset(self):
+        return self.queryset.select_related('article', 'user')
 
     def perform_destroy(self, instance):
         instance.is_active = False
