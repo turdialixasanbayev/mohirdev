@@ -53,15 +53,15 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
-    path('', include('apps.article.urls')),
-    path('', include('apps.cart.urls')),
-    path('', include('apps.category.urls')),
-    path('', include('apps.common.urls')),
-    path('', include('apps.contact.urls')),
-    path('', include('apps.course.urls')),
-    path('', include('apps.order.urls')),
-    path('', include('apps.user.urls')),
-    path('', include('apps.wishlist.urls')),
+    path('article/api/', include('apps.article.urls')),
+    path('cart/api/', include('apps.cart.urls')),
+    path('category/api/', include('apps.category.urls')),
+    path('common/api/', include('apps.common.urls')),
+    path('contact/api/', include('apps.contact.urls')),
+    path('course/api/', include('apps.course.urls')),
+    path('order/api/', include('apps.order.urls')),
+    path('user/api/', include('apps.user.urls')),
+    path('wishlist/api/', include('apps.wishlist.urls')),
 ]
 
 if settings.DEBUG:

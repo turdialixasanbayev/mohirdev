@@ -18,23 +18,17 @@ from apps.common import permissions
 
 
 class TagLCView(generics.ListCreateAPIView):
-    queryset = Tag.objects.all()
+    queryset = Tag.objects.filter(is_active=True)
     serializer_class = TagLCSerializer
     filterset_class = TagFilter
     permission_classes = [permissions.IsAdmin]
 
-    def get_queryset(self):
-        return self.queryset.filter(is_active=True)
-
 
 class TagRUDView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Tag.objects.all()
+    queryset = Tag.objects.filter(is_active=True)
     serializer_class = TagRUDSerializer
     lookup_field = 'slug'
     permission_classes = [permissions.IsAdmin]
-
-    def get_queryset(self):
-        return self.queryset.filter(is_active=True)
 
     def perform_destroy(self, instance):
         instance.is_active = False
@@ -42,23 +36,17 @@ class TagRUDView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CategoryLCView(generics.ListCreateAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.filter(is_active=True)
     serializer_class = CategoryLCSerializer
     filterset_class = CategoryFilter
     permission_classes = [permissions.IsAdmin]
 
-    def get_queryset(self):
-        return self.queryset.filter(is_active=True)
-
 
 class CategoryRUDView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.filter(is_active=True)
     serializer_class = CategoryRUDSerializer
     lookup_field = 'slug'
     permission_classes = [permissions.IsAdmin]
-
-    def get_queryset(self):
-        return self.queryset.filter(is_active=True)
 
     def perform_destroy(self, instance):
         instance.is_active = False
