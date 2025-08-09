@@ -16,6 +16,7 @@ class CustomUserManager(UserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('role', 'admin')
+        extra_fields.setdefault('is_author', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError("Admin is_staff=True bo'lishi shart")
@@ -23,16 +24,7 @@ class CustomUserManager(UserManager):
             raise ValueError("Admin is_superuser=True bo'lishi shart")
         if extra_fields.get('role') != 'admin':
             raise ValueError("Admin yaratish uchun role='admin' bo'lishi shart")
+        if extra_fields.get('is_author') is not True:
+            raise ValueError("Admin is_author=True bo'lishi shart")
 
         return self.create_user(phone_number, password, **extra_fields)
-
-    def create_teacher(self, phone_number, password=None, **extra_fields):
-        extra_fields.setdefault('role', 'teacher')
-        extra_fields.setdefault('is_staff', True)
-
-        if extra_fields.get('role') != 'teacher':
-            raise ValueError("O'qituvchi yaratish uchun role='teacher' bo'lishi shart")
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError("O'qituvchi is_staff=True bo'lishi shart")
-
-        return self.create_user(phone_number=phone_number, password=password, **extra_fields)

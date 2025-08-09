@@ -21,7 +21,12 @@ class Article(BaseModel):
     link = models.URLField(max_length=250, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='article_category', limit_choices_to={'role': CategoryRole.ARTICLE})
     tags = models.ManyToManyField(Tag, related_name='article_tags', blank=True)
-    author = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, related_name='article_author')
+    author = models.ForeignKey(
+        to='user.CustomUser',
+        on_delete=models.CASCADE,
+        related_name='article_author',
+        limit_choices_to={'is_author': True}
+    )
     views_count = models.IntegerField(default=0)
     duration = models.DurationField(null=True, blank=True)
 

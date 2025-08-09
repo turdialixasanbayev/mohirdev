@@ -30,6 +30,7 @@ class CustomUserAdmin(UserAdmin):
         'is_active',
         'is_staff',
         'is_superuser',
+        'is_author',
         'last_login',
         'date_joined',
     )
@@ -50,6 +51,7 @@ class CustomUserAdmin(UserAdmin):
     )
     list_filter = (
         'is_active',
+        'is_author',
         'is_staff',
         'is_superuser',
         'role',
@@ -69,7 +71,7 @@ class CustomUserAdmin(UserAdmin):
             'classes': ('wide',),
         }),
         ("Permissions", {
-            'fields': ('is_superuser', 'is_staff', 'is_active',),
+            'fields': ('is_superuser', 'is_staff', 'is_active', 'is_author',),
             'classes': ('wide',),
         }),
         ("Role and Gender and Age", {
@@ -91,7 +93,7 @@ class CustomUserAdmin(UserAdmin):
             'classes': ('wide',),
         }),
         ("Permissions", {
-            'fields': ('is_superuser', 'is_staff',),
+            'fields': ('is_superuser', 'is_staff', 'is_author',),
             'classes': ('wide',),
         }),
         ("Role", {

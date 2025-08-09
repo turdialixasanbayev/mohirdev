@@ -30,6 +30,7 @@ class CustomUser(AbstractUser):
     gender = models.CharField(max_length=10, choices=GENDER, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True, db_index=True)
     city = models.CharField(max_length=100, null=True, blank=True, db_index=True)
+    is_author = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
