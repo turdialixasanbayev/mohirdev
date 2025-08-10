@@ -1,4 +1,98 @@
 from django.urls import path
 
+from .views import (
+    SubEmailListCreateView,
+    SubEmailRetrieveUpdateDestroyView,
+    NotificationListCreateView,
+    NotificationRetrieveUpdateDestroyView,
+    StatisticsListCreateView,
+    StatisticsRetrieveUpdateDestroyView,
+    PartnersListCreateView,
+    PartnersRetrieveUpdateDestroyView,
+    TestimonialsListCreateView,
+    TestimonialsRetrieveUpdateDestroyView,
+    BannerListCreateView,
+    BannerRetrieveUpdateDestroyView,
+    CertificateListCreateAPIView,
+    CertificateRetrieveUpdateDestroyAPIView,
+    CertificateIsActiveStatusAPIView,
+)
 
-urlpatterns = []
+
+urlpatterns = [
+    path(
+        'sub-emails/',
+        SubEmailListCreateView.as_view(),
+        name='sub-email-list-create'
+    ),
+    path(
+        'sub-emails/<int:pk>/',
+        SubEmailRetrieveUpdateDestroyView.as_view(),
+        name='sub-email-retrieve-update-destroy'
+    ),
+    path(
+        'notifications/',
+        NotificationListCreateView.as_view(),
+        name='notification-list-create'
+    ),
+    path(
+        'notifications/<int:pk>/',
+        NotificationRetrieveUpdateDestroyView.as_view(),
+        name='notification-retrieve-update-destroy'
+    ),
+    path(
+        'statistics/',
+        StatisticsListCreateView.as_view(),
+        name='statistics-list-create'
+    ),
+    path(
+        'statistics/<int:pk>/',
+        StatisticsRetrieveUpdateDestroyView.as_view(),
+        name='statistics-retrieve-update-destroy'
+    ),
+    path(
+        'partners/',
+        PartnersListCreateView.as_view(),
+        name='partners-list-create'
+    ),
+    path(
+        'partners/<int:pk>/',
+        PartnersRetrieveUpdateDestroyView.as_view(),
+        name='partners-retrieve-update-destroy'
+    ),
+    path(
+        'testimonials/',
+        TestimonialsListCreateView.as_view(),
+        name='testimonials-list-create'
+    ),
+    path(
+        'testimonials/<int:pk>/',
+        TestimonialsRetrieveUpdateDestroyView.as_view(),
+        name='testimonials-retrieve-update-destroy'
+    ),
+    path(
+        'banners/',
+        BannerListCreateView.as_view(),
+        name='banners-list-create'
+    ),
+    path(
+        'banners/<int:pk>/',
+        BannerRetrieveUpdateDestroyView.as_view(),
+        name='banners-retrieve-update-destroy'
+    ),
+    path(
+        'certificates/',
+        CertificateListCreateAPIView.as_view(),
+        name='certificates-list-create'
+    ),
+    path(
+        'certificates/<int:pk>/',
+        CertificateRetrieveUpdateDestroyAPIView.as_view(),
+        name='certificates-retrieve-update-destroy'
+    ),
+    path(
+        'certificates/<int:pk>/status/',
+        CertificateIsActiveStatusAPIView.as_view(),
+        name='certificate-is-active-status'
+    ),
+]
