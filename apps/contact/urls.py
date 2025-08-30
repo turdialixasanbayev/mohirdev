@@ -11,7 +11,7 @@ from .views import (
 
 router = routers.DefaultRouter()
 
-router.register(r'contacts', ContactUsViewSet)
+router.register(r'contacts', ContactUsViewSet, basename='contacts')
 
 
 urlpatterns = [
