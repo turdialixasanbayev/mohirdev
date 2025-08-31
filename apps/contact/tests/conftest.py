@@ -3,19 +3,16 @@ from rest_framework.test import APIClient
 from apps.contact.tests.factories import ContactUsFactory
 
 
-@pytest.fixture(scope="function")
-def api_client():
-    """
-    DRF APIClient instance for making API requests.
-    """
-
-    return APIClient()
-
-
-@pytest.fixture(scope="function")
+@pytest.fixture
 def contact():
     """
-    Creates a single ContactUs instance using FactoryBoy.
+    Creates a single active ContactUs instance for tests.
     """
-
     return ContactUsFactory()
+
+@pytest.fixture
+def client():
+    """
+    Creates a REST framework API client for tests.
+    """
+    return APIClient()

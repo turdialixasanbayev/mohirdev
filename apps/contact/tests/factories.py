@@ -5,10 +5,9 @@ from apps.contact.models import ContactUs
 
 class ContactUsFactory(DjangoModelFactory):
     """
-    Factory for creating ContactUs model instances in tests.
-    Uses Faker for generating realistic test data.
+    Factory for creating active ContactUs instances.
+    Uses Faker to generate realistic test data.
     """
-
     class Meta:
         model = ContactUs
 
@@ -22,7 +21,6 @@ class ContactUsFactory(DjangoModelFactory):
 
 class InactiveContactUsFactory(ContactUsFactory):
     """
-    Factory for creating inactive ContactUs model instances in tests.
+    Factory for creating inactive ContactUs instances.
     """
-
     is_active = False
